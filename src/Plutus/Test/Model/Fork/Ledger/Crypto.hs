@@ -45,7 +45,7 @@ import Data.String
 import GHC.Generics (Generic)
 import Plutus.V1.Ledger.Api (LedgerBytes (LedgerBytes), TxId (TxId), fromBuiltin, toBuiltin, fromBytes)
 import Plutus.V1.Ledger.Bytes qualified as KB
-import Plutus.V1.Ledger.Crypto as Export
+import qualified Plutus.V1.Ledger.Crypto as Export
 import PlutusTx qualified as PlutusTx
 import PlutusTx.Lift (makeLift)
 import PlutusTx.Prelude qualified as PlutusTx
@@ -59,11 +59,11 @@ instance ToHttpApiData LedgerBytes where
 instance FromHttpApiData LedgerBytes where
      parseUrlPiece = bimap Text.pack fromBytes . JSON.tryDecode
 
-deriving newtype instance Serialise LedgerBytes
-instance ToJSON LedgerBytes where
-  toJSON = JSON.toJSON . toUrlPiece
-instance FromJSON LedgerBytes where
-  parseJSON x = either (const mzero) pure . parseUrlPiece =<< JSON.parseJSON x
+--deriving newtype instance Serialise LedgerBytes
+--instance ToJSON LedgerBytes where
+--  toJSON = JSON.toJSON . toUrlPiece
+--instance FromJSON LedgerBytes where
+--  parseJSON x = either (const mzero) pure . parseUrlPiece =<< JSON.parseJSON x
 
 -- | Passphrase newtype to mark intent
 newtype Passphrase =
